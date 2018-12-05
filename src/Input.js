@@ -16,9 +16,11 @@ export class UnconnectedInput extends Component {
 
     handleClick = event => {
         event.preventDefault();
-        console.log(this.state.value);
         if (this.state.value) {
             this.props.guessWord(this.state.value);
+            this.setState({
+                value: ''
+            })
         }
     };
 

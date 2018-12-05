@@ -87,7 +87,11 @@ describe('`guessWord` action creator call', () => {
     test('calls `guessWord` when button is clicked', () => {
         expect(guessWordMock).toHaveBeenCalledTimes(1);
     });
-    test('calls `guessWord` with input value as an argument', () => {
-        expect(wrapper.instance().state.value).toBe(guessedWord);
+    test('calls `guessWord` was called with input value as an argument', () => {
+        const guessWordMockArg = guessWordMock.mock.calls[0][0];
+        expect(guessWordMockArg).toBe(guessedWord);
     });
+    test('input box clears on submit', () => {
+        expect(wrapper.instance().state.value).toBe('');
+    })
 });
