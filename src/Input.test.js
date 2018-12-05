@@ -2,7 +2,8 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import { findByTestAttr, storeFactory } from "../test/testUtils";
-import Input from './Input';
+import Input, { UnconnectedInput } from './Input';
+import {guessWord} from "./actions";
 
 // without dive Input would be returned instead of its children
 const setup = (initialState = {}) => {
@@ -68,5 +69,25 @@ describe('redux props', () => {
         const wrapper = setup();
         const guessWordProp = wrapper.instance().props.guessWord;
         expect(guessWordProp).toBeInstanceOf(Function);
+    });
+});
+
+describe('`guessWord` action creator call', () => {
+    let guessWordMock, wrapper, guessedWord = 'train';
+    beforeEach(() => {
+        guessWordMock = jest.fn();
+        wrapper = shallow(<UnconnectedInput guessWord={guessWordMock} success={null}/>);
+
+        wrapper.instance().setState({ value: guessedWord });
+
+        const buttonComponent = findByTestAttr(wrapper, 'submit-button');
+        expect(buttonComponent.length).toBe(1);
+        buttonComponent.simulate('click', { preventDefault() {} });
+    });
+    test('calls `guessWord` when button is clicked', () => {
+        expect(guessWordMock).toHaveBeenCalledTimes(1);
+    });
+    test('calls `guessWord` with input value as an argument', () => {
+        expect(wrapper.instance().state.value).toBe(guessedWord);
     });
 });
