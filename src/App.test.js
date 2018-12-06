@@ -23,13 +23,6 @@ describe('redux props', () => {
         expect(testedProp).toBe(success);
     });
 
-    test('has access to `secretWord` piece of state', () => {
-        const secretWord = 'party';
-        const wrapper = setup({secretWord});
-        const testedProp = wrapper.instance().props.secretWord;
-        expect(testedProp).toBe(secretWord);
-    });
-
     test('has access to `guessedWords` piece of state', () => {
         const guessedWords = [
             {guessedWord: 'train', letterMatchCount: 3}

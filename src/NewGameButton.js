@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 
 import { startNewGame, getSecretWord } from "./actions";
 
@@ -13,7 +12,7 @@ export class UnconnectedNewGameButton extends Component {
     };
 
     render() {
-        if (!this.props.success) {
+        if (!this.props.success && !this.props.givenUp) {
             return null;
         }
 
@@ -23,10 +22,8 @@ export class UnconnectedNewGameButton extends Component {
     }
 }
 
-UnconnectedNewGameButton.propTypes = {
-    success: PropTypes.bool.isRequired,
-    startNewGame: PropTypes.func.isRequired,
-    getSecretWord: PropTypes.func.isRequired
+const mapStateToProps = ({ success, givenUp }) => {
+    return { success, givenUp }
 };
 
-export default connect(undefined, { startNewGame, getSecretWord })(UnconnectedNewGameButton);
+export default connect(mapStateToProps, { startNewGame, getSecretWord })(UnconnectedNewGameButton);

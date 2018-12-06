@@ -4,9 +4,9 @@ import { shallow } from 'enzyme';
 import NewGameButton, { UnconnectedNewGameButton } from './NewGameButton';
 import { storeFactory } from "../test/testUtils";
 
-const setup = (initialState = {}, componentState = { success: true }) => {
+const setup = (initialState = {}) => {
     const store = storeFactory(initialState);
-    return shallow(<NewGameButton store={store} {...componentState} />).dive();
+    return shallow(<NewGameButton store={store} />).dive();
 };
 
 const setupUnconnected = (success = true, startNewGameMock = jest.fn(), getSecretWordMock = jest.fn()) => {
@@ -30,13 +30,6 @@ describe('render', () => {
     });
 });
 
-test('has success prop', () => {
-    const success = false;
-    const button = setupUnconnected(success);
-    const successProp = button.instance().props.success;
-    expect(successProp).toBe(success);
-});
-
 describe('redux props', () => {
     test('has `startNewGame` action creator is a function prop', () => {
         const button = setup();
@@ -47,6 +40,16 @@ describe('redux props', () => {
         const button = setup();
         const startNewGameProp = button.instance().props.getSecretWord;
         expect(startNewGameProp).toBeInstanceOf(Function);
+    });
+    test('`success` piece of state is prop', () => {
+        const button = setup();
+        const startNewGameProp = button.instance().props.success;
+        expect(startNewGameProp).toBe(false);
+    });
+    test('`givenUp` piece of state is prop', () => {
+        const button = setup();
+        const givenUpProp = button.instance().props.givenUp;
+        expect(givenUpProp).toBe(false);
     });
 });
 

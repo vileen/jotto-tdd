@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import './App.css';
@@ -8,6 +8,7 @@ import { getSecretWord } from './actions';
 import Input from "./Input";
 import TotalGuesses from "./TotalGuesses";
 import NewGameButton from './NewGameButton';
+import GivenUp from './GivenUp';
 
 export class UnconnectedApp extends Component {
     componentDidMount() {
@@ -16,14 +17,14 @@ export class UnconnectedApp extends Component {
     }
 
     render() {
-        const { success, guessedWords, secretWord } = this.props;
+        const { success, guessedWords } = this.props;
 
         return (
             <div className="container" data-test="component-app">
                 <h1>Jotto</h1>
-                <div>The secret word is: {secretWord} </div>
+                <GivenUp />
                 <Congrats success={success}/>
-                <NewGameButton success={success} />
+                <NewGameButton />
                 <Input />
                 <GuessedWords guessedWords={guessedWords}/>
                 <TotalGuesses totalGuesses={guessedWords.length}/>
@@ -32,11 +33,10 @@ export class UnconnectedApp extends Component {
     }
 }
 
-const mapStateToProps = ({success, guessedWords, secretWord}) => {
+const mapStateToProps = ({success, guessedWords}) => {
     return {
         success,
-        guessedWords,
-        secretWord
+        guessedWords
     }
 };
 

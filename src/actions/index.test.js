@@ -35,6 +35,7 @@ describe('startNewGame action creator', () => {
     beforeEach(() => {
         const initialState = {
             success: true,
+            givenUp: false,
             guessedWords: [
                 { guessedWord: 'rainy', letterMatchCount: 1 },
                 { guessedWord: 'train', letterMatchCount: 1 }

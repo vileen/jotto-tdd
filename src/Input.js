@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { guessWord } from "./actions";
+import {giveUp, guessWord} from "./actions";
 
 export class UnconnectedInput extends Component {
     state = {
@@ -14,7 +14,7 @@ export class UnconnectedInput extends Component {
         });
     };
 
-    handleClick = event => {
+    handleGuessClick = event => {
         event.preventDefault();
         if (this.state.value) {
             this.props.guessWord(this.state.value);
@@ -24,8 +24,13 @@ export class UnconnectedInput extends Component {
         }
     };
 
+    handleGiveUpClick = event => {
+        event.preventDefault();
+        this.props.giveUp();
+    };
+
     render() {
-        let contents = this.props.success ? null : <form className="form-inline">
+        let contents = this.props.success || this.props.givenUp ? null : <form className="form-inline">
             <input
                 type="text"
                 data-test="input-box"
@@ -39,9 +44,17 @@ export class UnconnectedInput extends Component {
                 type="submit"
                 data-test="submit-button"
                 className="btn btn-primary mb-2"
-                onClick={this.handleClick}
+                onClick={this.handleGuessClick}
             >
-                Submit
+                Guess
+            </button>
+            <button
+                type="button"
+                data-test="give-up-button"
+                className="btn btn-danger mb-2"
+                onClick={this.handleGiveUpClick}
+            >
+                Give up
             </button>
         </form>;
 
@@ -51,8 +64,8 @@ export class UnconnectedInput extends Component {
     }
 }
 
-const mapStateToProps = ({success}) => {
-    return { success };
+const mapStateToProps = ({success, givenUp}) => {
+    return { success, givenUp };
 };
 
-export default connect(mapStateToProps, { guessWord })(UnconnectedInput);
+export default connect(mapStateToProps, { guessWord, giveUp })(UnconnectedInput);
