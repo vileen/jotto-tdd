@@ -8,11 +8,11 @@ export class UnconnectedInput extends Component {
         value: ''
     };
 
-    handleInputChange(event) {
+    handleInputChange = event => {
         this.setState({
             value: event.target.value
         });
-    }
+    };
 
     handleClick = event => {
         event.preventDefault();
