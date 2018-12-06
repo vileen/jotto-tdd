@@ -7,6 +7,7 @@ import Congrats from './Congrats';
 import { getSecretWord } from './actions';
 import Input from "./Input";
 import TotalGuesses from "./TotalGuesses";
+import NewGameButton from './NewGameButton';
 
 export class UnconnectedApp extends Component {
     componentDidMount() {
@@ -20,8 +21,9 @@ export class UnconnectedApp extends Component {
         return (
             <div className="container" data-test="component-app">
                 <h1>Jotto</h1>
-                <div>The secret word is: { secretWord} </div>
+                <div>The secret word is: {secretWord} </div>
                 <Congrats success={success}/>
+                <NewGameButton success={success} />
                 <Input />
                 <GuessedWords guessedWords={guessedWords}/>
                 <TotalGuesses totalGuesses={guessedWords.length}/>

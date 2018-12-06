@@ -1,5 +1,5 @@
 import { storeFactory } from "../test/testUtils";
-import { guessWord } from './actions';
+import {guessWord, startNewGame} from './actions';
 
 describe('guessWord action dispatcher', () => {
     const secretWord = 'party';
@@ -71,4 +71,24 @@ describe('guessWord action dispatcher', () => {
             expect(newState).toEqual(expectedState);
         });
     });
+});
+
+test('startNewGame action dispatcher updated state correctly', () => {
+    const initialState = {
+        success: true,
+        secretWord: 'train',
+        guessedWords: [
+            { guessedWord: 'male', letterMatchCount: 1}
+        ]
+    };
+    let store = storeFactory(initialState);
+
+    store.dispatch(startNewGame());
+    const newState = store.getState();
+    const expectedState = {
+        ...initialState,
+        success: false,
+        guessedWords: []
+    };
+    expect(newState).toEqual(expectedState);
 });

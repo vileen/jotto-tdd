@@ -1,7 +1,7 @@
 import moxios from 'moxios';
 
 import { storeFactory } from "../../test/testUtils";
-import { getSecretWord } from "./";
+import { getSecretWord, startNewGame } from "./";
 
 describe('getSecretWord action creator', () => {
     beforeEach(() => {
@@ -27,5 +27,33 @@ describe('getSecretWord action creator', () => {
             const newState = store.getState();
             expect(newState.secretWord).toBe(secretWord);
         });
+    });
+});
+
+describe('startNewGame action creator', () => {
+    let store;
+    beforeEach(() => {
+        const initialState = {
+            success: true,
+            guessedWords: [
+                { guessedWord: 'rainy', letterMatchCount: 1 },
+                { guessedWord: 'train', letterMatchCount: 1 }
+            ],
+            secretWord: 'testy'
+        };
+         store = storeFactory(initialState);
+         expect(store.getState()).toEqual(initialState);
+    });
+    test('`guessedWords` redux state gets cleared ', () => {
+        store.dispatch(startNewGame());
+
+        const guessedWordsState = store.getState().guessedWords;
+        expect(guessedWordsState.length).toBe(0);
+    });
+    test('`success` redux state is set to false', () => {
+        store.dispatch(startNewGame());
+
+        const guessedWordsState = store.getState().success;
+        expect(guessedWordsState).toBe(false);
     });
 });

@@ -4,7 +4,8 @@ import axios from 'axios';
 export const actionTypes = {
     CORRECT_GUESS: 'CORRECT_GUESS',
     GUESS_WORD: 'GUESS_WORD',
-    SET_SECRET_WORD: 'SET_SECRET_WORD'
+    SET_SECRET_WORD: 'SET_SECRET_WORD',
+    START_NEW_GAME: 'START_NEW_GAME'
 };
 
 export const guessWord = (guessedWord) => {
@@ -33,5 +34,13 @@ export const getSecretWord = () => {
                 payload: response.data
             })
         });
+    };
+};
+
+export const startNewGame = () => {
+    return dispatch => {
+        dispatch({
+            type: actionTypes.START_NEW_GAME
+        })
     };
 };
