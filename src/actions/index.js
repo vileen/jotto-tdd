@@ -6,10 +6,11 @@ export const actionTypes = {
     GUESS_WORD: 'GUESS_WORD',
     SET_SECRET_WORD: 'SET_SECRET_WORD',
     START_NEW_GAME: 'START_NEW_GAME',
-    GIVEN_UP: 'GIVEN_UP'
+    GIVEN_UP: 'GIVEN_UP',
+    SET_GAME_MODE: 'SET_GAME_MODE'
 };
 
-export const guessWord = (guessedWord) => {
+export const guessWord = guessedWord => {
     return function(dispatch, getState) {
         const secretWord = getState().secretWord;
         const letterMatchCount = getLetterMatchCount(guessedWord, secretWord);
@@ -36,6 +37,24 @@ export const getSecretWord = () => {
             })
         });
     };
+};
+
+export const typeSecretWord = word => {
+    return dispatch => {
+        dispatch({
+            type: actionTypes.SET_SECRET_WORD,
+            payload: word
+        })
+    };
+};
+
+export const setGameMode = mode => {
+    return dispatch => {
+        dispatch({
+            type: actionTypes.SET_GAME_MODE,
+            payload: mode
+        })
+    }
 };
 
 export const startNewGame = () => {

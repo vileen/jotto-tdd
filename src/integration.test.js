@@ -19,6 +19,7 @@ describe('guessWord action dispatcher', () => {
                 ...initialState,
                 success: false,
                 givenUp: false,
+                modeChosen: '',
                 guessedWords: [
                     { guessedWord: unsuccessfulGuess, letterMatchCount: 3 }
                 ]
@@ -33,6 +34,7 @@ describe('guessWord action dispatcher', () => {
                 ...initialState,
                 success: true,
                 givenUp: false,
+                modeChosen: '',
                 guessedWords: [
                     { guessedWord: secretWord, letterMatchCount: secretWord.length }
                 ]
@@ -56,6 +58,7 @@ describe('guessWord action dispatcher', () => {
                 secretWord,
                 success: false,
                 givenUp: false,
+                modeChosen: "",
                 guessedWords: [...guessedWords, { guessedWord: unsuccessfulGuess, letterMatchCount: 3}]
             };
             expect(newState).toEqual(expectedState);
@@ -68,6 +71,7 @@ describe('guessWord action dispatcher', () => {
                 secretWord,
                 givenUp: false,
                 success: true,
+                modeChosen: "",
                 guessedWords: [
                     ...guessedWords, { guessedWord: secretWord, letterMatchCount: secretWord.length }
                 ]
@@ -82,6 +86,7 @@ test('startNewGame action dispatcher updated state correctly', () => {
         success: true,
         givenUp: false,
         secretWord: 'train',
+        modeChosen: "random",
         guessedWords: [
             { guessedWord: 'male', letterMatchCount: 1}
         ]

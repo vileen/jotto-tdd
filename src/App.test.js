@@ -16,45 +16,10 @@ it('renders without crashing', () => {
 });
 
 describe('redux props', () => {
-    test('has access to `success` piece of state', () => {
-        const success = true;
-        const wrapper = setup({success});
-        const testedProp = wrapper.instance().props.success;
-        expect(testedProp).toBe(success);
+    test('has access to `modeChosen` piece of state', () => {
+        const modeChosen = true;
+        const wrapper = setup({modeChosen});
+        const testedProp = wrapper.instance().props.modeChosen;
+        expect(testedProp).toBe(modeChosen);
     });
-
-    test('has access to `guessedWords` piece of state', () => {
-        const guessedWords = [
-            {guessedWord: 'train', letterMatchCount: 3}
-        ];
-        const wrapper = setup({guessedWords});
-        const testedProp = wrapper.instance().props.guessedWords;
-        expect(testedProp).toEqual(guessedWords);
-    });
-
-    test('`getSecretWord` is a function in the props', () => {
-        const wrapper = setup();
-        const testedProp = wrapper.instance().props.getSecretWord;
-        expect(testedProp).toBeInstanceOf(Function);
-    });
-});
-
-test('`getSecretWord` runs on App mount', () => {
-    const getSecretWordMock = jest.fn();
-
-    const props = {
-        getSecretWord: getSecretWordMock,
-        success: false,
-        guessedWords: []
-    };
-    // set up app component with getSecretWordMock as the getSecretWord prop
-    const wrapper = shallow(<UnconnectedApp {...props} />);
-
-    // run lifecycle method
-    wrapper.instance().componentDidMount();
-
-    // check to see if mock ran
-    const getSecretWordCallCount = getSecretWordMock.mock.calls.length;
-    expect(getSecretWordCallCount).toBe(1);
-    expect(getSecretWordMock).toHaveBeenCalledTimes(1); // the same as above
 });
