@@ -19,6 +19,7 @@ describe('guessWord action dispatcher', () => {
                 ...initialState,
                 success: false,
                 givenUp: false,
+                error: false,
                 modeChosen: '',
                 guessedWords: [
                     { guessedWord: unsuccessfulGuess, letterMatchCount: 3 }
@@ -34,6 +35,7 @@ describe('guessWord action dispatcher', () => {
                 ...initialState,
                 success: true,
                 givenUp: false,
+                error: false,
                 modeChosen: '',
                 guessedWords: [
                     { guessedWord: secretWord, letterMatchCount: secretWord.length }
@@ -58,6 +60,7 @@ describe('guessWord action dispatcher', () => {
                 secretWord,
                 success: false,
                 givenUp: false,
+                error: false,
                 modeChosen: "",
                 guessedWords: [...guessedWords, { guessedWord: unsuccessfulGuess, letterMatchCount: 3}]
             };
@@ -71,6 +74,7 @@ describe('guessWord action dispatcher', () => {
                 secretWord,
                 givenUp: false,
                 success: true,
+                error: false,
                 modeChosen: "",
                 guessedWords: [
                     ...guessedWords, { guessedWord: secretWord, letterMatchCount: secretWord.length }
@@ -85,6 +89,7 @@ test('startNewGame action dispatcher updated state correctly', () => {
     const initialState = {
         success: true,
         givenUp: false,
+        error: false,
         secretWord: 'train',
         modeChosen: "random",
         guessedWords: [

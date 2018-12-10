@@ -53,6 +53,7 @@ describe('redux props', () => {
     });
 });
 
+
 describe('action creators', () => {
     let button, startNewGameMock, getSecretWordMock;
     beforeEach(() => {

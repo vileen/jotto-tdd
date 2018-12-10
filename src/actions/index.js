@@ -7,7 +7,8 @@ export const actionTypes = {
     SET_SECRET_WORD: 'SET_SECRET_WORD',
     START_NEW_GAME: 'START_NEW_GAME',
     GIVEN_UP: 'GIVEN_UP',
-    SET_GAME_MODE: 'SET_GAME_MODE'
+    SET_GAME_MODE: 'SET_GAME_MODE',
+    ERROR_CAUGHT: 'ERROR_CAUGHT'
 };
 
 export const guessWord = guessedWord => {
@@ -34,6 +35,10 @@ export const getSecretWord = () => {
             dispatch({
                 type: actionTypes.SET_SECRET_WORD,
                 payload: response.data
+            })
+        }).catch(() => {
+            dispatch({
+                type: actionTypes.ERROR_CAUGHT
             })
         });
     };

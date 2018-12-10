@@ -5,17 +5,22 @@ import './App.css';
 import Game from "./Game";
 import ChooseMode from './ChooseMode';
 import TypeInSecretWord from "./TypeInSecretWord";
+import ErrorPage from './ErrorPage';
 
 export class UnconnectedApp extends Component {
     render() {
+        const { modeChosen, secretWord, error } = this.props;
+
         let content = <ChooseMode />;
-        if (this.props.modeChosen) {
+        if (error) {
+            content = <ErrorPage />;
+        } else if (modeChosen) {
             if (
-                this.props.modeChosen === 'random' ||
-                (this.props.modeChosen === 'user' && this.props.secretWord)
+                modeChosen === 'random' ||
+                (modeChosen === 'user' && secretWord)
             ) {
                 content = <Game />;
-            } else if(!this.props.secretWord) {
+            } else if(!secretWord) {
                 content = <TypeInSecretWord />;
             }
         }
@@ -28,10 +33,11 @@ export class UnconnectedApp extends Component {
     }
 }
 
-const mapStateToProps = ({modeChosen, secretWord}) => {
+const mapStateToProps = ({modeChosen, secretWord, error}) => {
     return {
         modeChosen,
-        secretWord
+        secretWord,
+        error
     }
 };
 

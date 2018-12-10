@@ -28,6 +28,22 @@ describe('getSecretWord action creator', () => {
             expect(newState.secretWord).toBe(secretWord);
         });
     });
+    test('dispatches error action if error caught', () => {
+        const store = storeFactory();
+
+        moxios.wait(() => {
+            const request = moxios.requests.mostRecent();
+            request.respondWith({
+                status: 500
+            })
+        });
+
+        // return is here to make sure that promise actually resolves before completing the test
+        return store.dispatch(getSecretWord()).then(() => {
+            const newState = store.getState();
+            expect(newState.error).toBe(true);
+        });
+    });
 });
 
 describe('startNewGame action creator', () => {
@@ -36,6 +52,7 @@ describe('startNewGame action creator', () => {
         const initialState = {
             success: true,
             givenUp: false,
+            error: false,
             modeChosen: "random",
             guessedWords: [
                 { guessedWord: 'rainy', letterMatchCount: 1 },
